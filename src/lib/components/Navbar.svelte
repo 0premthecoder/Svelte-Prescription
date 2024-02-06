@@ -1,20 +1,28 @@
 <script>
   // @ts-nocheck
 
-  import { onMount } from "svelte";
+  // import { invalidateAll } from '$app/navigation';
+  // import { appwrite } from '$lib/appwrite.js';
 
-  // @ts-nocheck
+  // export let data;
+
+  // $: loggedIn = !!data.account;
+
+  // async function logout() {
+  // 	await appwrite.account.deleteSession('current');
+  // 	// invalidateAll will execute all `load` functions again.
+  // 	// In our case, this means we'll fetch the account data again.
+  // 	await invalidateAll();
+  // }
+
 
   let a = "active"; // We will use it for doing dry principle
   let home = false; // Checking Active home, login etc.
   let login = false;
   let add = false;
   let ch = false;
-  let doc;
-  $: newDoc = !doc;
-  onMount(() => {
-    doc = JSON.parse(localStorage.getItem("doctor")) == null ? true : false;
-  });
+
+ 
   $: makeActivLogin = () => {
     home = false;
     login = true;
@@ -59,7 +67,7 @@
     >
   </li>
   <!-- svelte-ignore missing-declaration -->
-  {#if newDoc}
+  
     <li class="nav-item">
       <a
         class="nav-link {add ? a : ''}"
@@ -67,8 +75,6 @@
         on:click={makeActiveAdd}>Add Prescription</a
       >
     </li>
-  {:else}
-    {""}{/if}
   <li class="nav-item">
     <!-- svelte-ignore missing-declaration -->
     <a
