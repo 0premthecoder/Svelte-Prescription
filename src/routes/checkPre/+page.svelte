@@ -78,7 +78,8 @@
           </tr>
         {/each}
       </tbody>
-    </table>
+    </table>    
+    <button on:click={()=>window.print()}>Print your Prescription</button>
   {/if}
 
   <h2>{verify}</h2>
