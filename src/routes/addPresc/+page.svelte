@@ -39,15 +39,17 @@
       patName: patient,
       medic: medicines,
     });
-    localStorage.setItem("presc", JSON.stringify(prescription));
+
+  //   localStorage.setItem("presc", JSON.stringify(
+  // (await getMedicines()).documents));
+    
     // addIdea(presc.patName, presc.docName)
     
-      
+    
     
   };
 
  
-
   const addNewTab = () => {
     medicines = [...medicines, { name: "", quantity: "", dose: "" }];
   };

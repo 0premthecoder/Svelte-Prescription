@@ -1,26 +1,39 @@
 <script>
   // @ts-nocheck
   import "../../global.css";
+  import { getMedicines } from "$lib/medicine";
   /** @type {import('./$types').PageData} */
   let _id;
   let verify = "Please Write Id";
-  let medicine = []
+  let medicine = [];
   let yes = false;
+
+  const saveDoc = async () => {
+    let parse = await getMedicines();
+    console.log(parse)
+    localStorage.setItem("presc", JSON.stringify(parse));
+    return parse
+  };
+  
+
   $: if (_id) {
-     // Prescription Array
-    let a = JSON.parse(localStorage.getItem("presc"))
-    for (let i = 0; i < a.length; i++) {
-      if (_id == a[i]["_id"]) {
+    saveDoc()
+    // Prescription Array
+    let a = JSON.parse(localStorage.getItem("presc"));
+    
+    for (let i = 0; i < a["documents"].length; i++) {
+      if (_id == a["documents"][i]["$id"]) {
         verify = "This is Verfied";
         yes = true;
-        medicine = a[i]["medic"]
-        console.log(medicine)
+        medicine = JSON.parse(a["documents"][i]["Medic"]);
+        console.log(medicine);
         break;
       } else {
         yes = false;
         verify = "Not Verified";
       }
     }
+    // console.log(a["documents"][4]["$id"])
   }
 </script>
 
@@ -41,27 +54,26 @@
   </div>
 
   {#if yes}
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Dose</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each medicine as medicine, i}
+    <table class="table">
+      <thead>
         <tr>
-        <th scope="row">{i+1}</th>
-        <td>{medicine.name}</td>
-        <td>{medicine.quantity}</td>
-        <td>{medicine.dose}</td>
-      </tr>
-      {/each}
-      
-    </tbody>
-  </table>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Dose</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each medicine as medicine, i}
+          <tr>
+            <th scope="row">{i + 1}</th>
+            <td>{medicine.name}</td>
+            <td>{medicine.quantity}</td>
+            <td>{medicine.dose}</td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
   {/if}
 
   <h2>{verify}</h2>
