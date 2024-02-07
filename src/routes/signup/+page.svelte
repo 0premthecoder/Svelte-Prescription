@@ -6,14 +6,14 @@
     import { ID } from "appwrite";
 
     /** @type {string|null} */
-    let formError = null;
+    let formError = "";
 
     /**
      * @param {Event} event
      */
     async function handleSubmit(event) {
         event.preventDefault();
-        formError = null;
+        formError = "";
 
         const form = /** @type {HTMLFormElement} */ (event.target);
         const formData = /** @type Record<string, string | undefined> */ (
