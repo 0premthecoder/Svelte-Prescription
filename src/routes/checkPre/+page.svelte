@@ -16,8 +16,9 @@
   };
   
 
-  $: if (_id) {
-    saveDoc()
+  const handleClick=async ()=>{
+    await saveDoc()
+    if (_id) {
     // Prescription Array
     let a = JSON.parse(localStorage.getItem("presc"));
     
@@ -35,6 +36,8 @@
     }
     // console.log(a["documents"][4]["$id"])
   }
+  }
+  
 </script>
 
 <h1>Check Your Prescription</h1>
@@ -51,6 +54,8 @@
       placeholder="Prescription Id"
       bind:value={_id}
     />
+    <br>
+    <button on:click={handleClick}>Check Prescription</button>
   </div>
 
   {#if yes}
